@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'Arcade';
+    src: URL('./arcade-font/arcade-normal.ttf') format('truetype');
+}
+
+body {
+    font-family: 'Arcade';
+    margin: 50px;
+    background-color: black;
+}
+
+h1 {
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+canvas {
+    border: solid 8px white;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        margin: 2px;
+    }
+    h1 {
+        font-size: 36px;
+    }
+    canvas {
+        height: 60%;
+        width: 100%;
+    }
+}

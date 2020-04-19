@@ -1,0 +1,30 @@
+@import "base.css";
+
+img {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: auto;
+    width: 50%;
+}
+
+button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+ul {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        margin: 2px;
+    }
+    h1 {
+        font-size: 36px;
+    }
+    img {
+        width: 100%;
+    }
+}
