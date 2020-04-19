@@ -1,10 +1,14 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+
+const app = express();
 
 app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/views'));
+app.use(favicon(path.join(__dirname, '/public/images', 'favicon.ico')));
 
 app.get('/', function(request, response) {
 	response.render('pages/home',{
@@ -48,4 +52,5 @@ app.get('/game-of-life', function(request, response) {
 	});
 });
 
-app.listen(3000);
+const port = process.env.PORT || 8000;
+app.listen(port);
