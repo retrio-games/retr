@@ -1,0 +1,12 @@
+{
+  "name": "retrio-games",
+  "version": "1.0.0",
+  "description": "Simple web app that allows you to play games.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
