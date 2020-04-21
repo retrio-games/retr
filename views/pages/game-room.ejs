@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+
+    <!-- HEAD -->
+    <head>
+        <%- include('../partials/head'); %> 
+    </head>
+    <!-- BODY -->
+    <body class="text-center">
+   
+        <!-- Title -->
+        <h1>Game Room</h1>
+        
+        <!-- Game -->
+        <canvas id="canvas" height="600" width="800"></canvas>
+
+
+        <%- include('../partials/not-signed-in-nav-and-scripts'); %>
+        <%  
+    var script_text = '<script>var name_entry = "default"; var shape_choice = "square"; var color_choice = "blue";</script>'
+        %>
+        <%- script_text %>
+        <script src="/scripts/game-room.js"></script>
+    <!-- END BODY -->
+    </body>
+
+</html>

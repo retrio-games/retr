@@ -1,5 +1,10 @@
 var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
+//context.canvas.width = window.innerWidth*.6;
+//context.canvas.height = window.innerHeight*.6;
+var name_entry;
+var shape_choice;
+var color_choice;
 
 class Character {
     constructor(name, shape, color, radius, x, y) {
@@ -150,29 +155,38 @@ function movementHandler(character) {
     }
 }
 
-const character = new Character("Alice", "square", "blue", 10, 400, 550);
-const gameOfLife = new Table(10, 10, 150, 100, "Game of Life", "../views/game-of-life.html");
+const character = new Character(name_entry, shape_choice, color_choice, 10, 400, 550);
+const gameOfLife = new Table(10, 300, 150, 100, "Game of Life", "../views/game-of-life.html");
+const blackjack = new Table(640, 300, 150, 100, "Blackjack", "../views/blackJack.html");
 
-function characterIsInTable(character, table) {
-    if(character.x >= table.x && character.x <= table.width && character.y >= table.y && character.y <= table.height) {
+function characterIsInTable (character, table) {
+    let tableRightBound = table.x + table.width;
+    let tableBottomBound = table.y + table.height;
+    if(character.x >= table.x && character.x <= tableRightBound && character.y >= table.y && character.y <= tableBottomBound) {
         return 1;
     }
     else {
         return 0;
     }
 }
-
 function roomDriver() {
     context.clearRect(0, 0, canvas.width, canvas.height);
     character.draw();
     gameOfLife.draw();
     gameOfLife.drawName();
+    blackjack.draw();
+    blackjack.drawName();
     if(characterIsInTable(character, gameOfLife)) {
-        window.location.assign(gameOfLife.page);
+        window.location.href = gameOfLife.page;
+    }
+    if(characterIsInTable(character, blackjack)) {
+        window.location.href = blackjack.page;
+
     }
     movementHandler(character);
 }
 
 alert("Use the arrow keys to move your character. Move your character to a table to play a game.");
 
+// Repeat createRoom function every 10 milliseconds.
 setInterval(roomDriver, 10);

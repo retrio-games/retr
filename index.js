@@ -41,7 +41,8 @@ app.get('/sign-up', function(request, response) {
 app.get('/game-room', function(request, response) {
 	response.render('pages/game-room',{
 		css: "game-room.css", 
-		title: "Retr.io Games: Game Room"
+		title: "Retr.io Games: Game Room",
+		data: null
 	});
 });
 
