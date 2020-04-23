@@ -19,7 +19,7 @@ app.use(favicon(path.join(__dirname, '/public/images', 'favicon.ico')));
 
 const Pool = require('pg').Pool
 const db = new Pool({
-  user: 'postgres',
+  user: 'nattobiason',
   host: 'localhost',
   database: 'casino',
   password: 'password',
@@ -47,7 +47,7 @@ app.get('/setuser', function(request, response){
 /* basic route to home page */
 app.get('/', function(request, response) {
 	response.render('pages/home',{
-		css: "home.css", 
+		css: "home.css",
 		title: "Retr.io Games"
 	});
 });
@@ -55,7 +55,7 @@ app.get('/', function(request, response) {
 /* sign-up */
 app.get('/sign-up', function(request, response){
 	response.render('pages/sign-up',{
-		css: "sign-in-and-sign-up.css", 
+		css: "sign-in-and-sign-up.css",
 		title: "Retr.io Games: Sign Up"
 	});
 });
@@ -67,14 +67,14 @@ app.post('/sign-up', function(request, response){
 	var query = 'INSERT INTO users (username, user_password) VALUES (\''+ email +'\', \''+ pwd +'\');'
 	db.query(query)
 	response.render('pages/character-customization',{
-		css: "character-customization.css", 
+		css: "character-customization.css",
 		title: "Retr.io Games: Character Customization"
 	});
 });
 
 
 /* INTEGRATE THIS
-sign in 
+sign in
 app.get('/sign-in', function(request, response){
   var email = request.body.email;
   var pwd = request.body.password;
@@ -86,7 +86,7 @@ app.get('/sign-in', function(request, response){
 */
 app.get('/sign-in', function(request, response) {
 	response.render('pages/sign-in',{
-		css: "sign-in-and-sign-up.css", 
+		css: "sign-in-and-sign-up.css",
 		title: "Retr.io Games: Sign In"
 	});
 });
@@ -95,7 +95,7 @@ app.get('/sign-in', function(request, response) {
 
 app.get('/character-customization', function(request, response) {
 	response.render('pages/character-customization',{
-		css: "character-customization.css", 
+		css: "character-customization.css",
 		title: "Retr.io Games: Character Customization"
 	});
 });
@@ -106,7 +106,7 @@ app.post('/sign-up/cc', function(request, response){
 	var query = 'INSERT INTO display (display_name, shape, color) VALUES ( \''+ name +'\', \'square\', \''+ color +'\');'
 	db.query(query)
 	response.render('pages/sign-in',{
-		css: "sign-in-and-sign-up.css", 
+		css: "sign-in-and-sign-up.css",
 		title: "Retr.io Games: Sign In"
 	});
 	// match display_ID incremented in display table to the empty display_ID in user table
@@ -117,7 +117,7 @@ app.post('/sign-up/cc', function(request, response){
 
 app.get('/game-room', function(request, response) {
 	response.render('pages/game-room',{
-		css: "game-room.css", 
+		css: "game-room.css",
 		title: "Retr.io Games: Game Room",
 		data: null
 	});
@@ -125,7 +125,7 @@ app.get('/game-room', function(request, response) {
 
 app.get('/game-of-life', function(request, response) {
 	response.render('pages/game-of-life',{
-		css: "game-of-life.css", 
+		css: "game-of-life.css",
 		title: "Retr.io Games: Game of Life"
 	});
 });
