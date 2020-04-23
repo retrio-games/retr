@@ -79,11 +79,12 @@ app.post('/sign-up', function(request, response){
 //});
 
 app.post('/character-customization', function(request, response){
-	var name = request.body.characterName;
-	var color = request.body.characterColor.value;
-	var query = 'INSERT INTO display (display_name, shape, color) VALUES ( \''+ name +'\', \'square\', \''+ color +'\');'
+	var name = request.body.charName;
+	var color = request.body.charColor;
+	var shape = request.body.charShape;
+	var query = 'INSERT INTO display (display_name, shape, color) VALUES ( \''+ name +'\', \''+ shape +'\', \''+ color +'\');'
 	db.query(query)
-	response.render('pages/sign-in',{
+	response.render('pages/game-room',{
 		css: "sign-in-and-sign-up.css", 
 		title: "Retr.io Games: Sign In"
 	});
