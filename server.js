@@ -66,6 +66,20 @@ app.post('/sign-up', function(request, response){
 	user.userID = request.body.email; // somehow get the actual user_ID not the email
 	var email = request.body.email;
 	var pwd   = request.body.password;
+	var query3 = 'SELECT count(user_id) FROM users WHERE user_id = \''+ email +'\';'
+	db.query(query3)
+	.then( function(rows){
+		console.log(rows);
+  		console.log(rows.rows[0].count);
+  		if (rows.rows[0].count > 0){
+		      console.log("Email Already Used.");
+		      response.render('pages/sign-up',{
+		      	css: "sign-in-and-sign-up.css", 
+		      	title: "Retr.io Games: Sign In"
+		      });
+		}
+	});	
+	return;
 	var query = 'INSERT INTO users (user_id, user_password) VALUES (\''+email+'\', \''+ pwd +'\');'
 	var query1= 'INSERT INTO stats (stats_id, games_played, account_balance, games_won, games_lost, net_profit) VALUES (\''+email+'\',0,100,0,0,0);'
 	db.query(query)
