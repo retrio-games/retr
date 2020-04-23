@@ -52,6 +52,8 @@ app.get('/', function(request, response) {
 });
 
 /* sign-up */
+/* TODO
+1. create a check to make sure username doesn't exist already*/
 app.get('/sign-up', function(request, response){
 	response.render('pages/sign-up',{
 		css: "sign-in-and-sign-up.css", 
@@ -95,24 +97,51 @@ app.post('/character-customization', function(request, response){
 	// match display_ID incremented in display table to the empty display_ID in user table
 });
 
-/* INTEGRATE THIS
-sign in 
-app.get('/sign-in', function(request, response){
-  var email = request.body.email;
-  var pwd = request.body.password;
-  var query = 'SELECT user_ID, display_ID, stat_ID FROM users WHERE username = '+ email +', user_password = '+ pwd +';'
-  // check if query exsist
-  // if it does send user_ID, display_ID, and stat_ID to user.userID etc --> and send user to game room page
-  // if query does not exsist then ask to re-enter username/password or whatever
-});
-*/
-
 app.get('/sign-in', function(request, response) {
 	response.render('pages/sign-in',{
 		css: "sign-in-and-sign-up.css", 
 		title: "Retr.io Games: Sign In"
 	});
 });
+
+
+/* INTEGRATE THIS
+sign in */
+app.post('/sign-in', function(request, response){
+  var email = request.body.email;
+  var pwd = request.body.password;
+  var query = 'SELECT count(user_id) FROM users WHERE username = \''+ email +'\' AND user_password = \''+ pwd +'\';'
+  db.query(query)
+  .then( function(rows){
+  	console.log(rows);
+  	console.log(rows.rows[0].count);
+  	if (rows.rows[0].count == 0){
+  	console.log("failed to get user");
+  	response.render('pages/sign-in',{
+		css: "sign-in-and-sign-up.css", 
+		title: "Retr.io Games: Sign In"
+	});
+  }
+  else{
+  	response.render('pages/game-room',{
+		css: "sign-in-and-sign-up.css", 
+		title: "Retr.io Games: Sign In"
+	});
+  }
+  })
+  /*
+  .catch( function(err){
+  	response.render('pages/sign-in',{
+		css: "sign-in-and-sign-up.css", 
+		title: "Retr.io Games: Sign In"
+	});
+  })
+  */
+  // check if query exsist
+  // if it does send user_ID, display_ID, and stat_ID to user.userID etc --> and send user to game room page
+  // if query does not exsist then ask to re-enter username/password or whatever
+});
+/**/
 
 /* character customization */
 
