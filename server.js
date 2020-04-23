@@ -129,6 +129,20 @@ app.post('/sign-in', function(request, response){
   var email = request.body.email;
   var pwd = request.body.password;
   var query = 'SELECT count(user_id) FROM users WHERE username = \''+ email +'\' AND user_password = \''+ pwd +'\';'
+  var result = 'SELECT shape, color FROM display WHERE display_id = \''+ email +'\';' 
+  db.task('get-everything', task => {
+        return task.batch([
+            task.any(query),
+            task.any(result)
+        ]);
+    })
+    .then(info => {
+    	console.log(info);
+    })
+    .catch(error => {
+        
+    });
+  /*
   db.query(query)
   .then( function(rows){
   	console.log(rows);
@@ -145,8 +159,10 @@ app.post('/sign-in', function(request, response){
 		css: "sign-in-and-sign-up.css", 
 		title: "Retr.io Games: Sign In"
 	});
+  	
   }
   })
+  */
   /*
   .catch( function(err){
   	response.render('pages/sign-in',{
