@@ -14,10 +14,9 @@
         <!-- Game -->
         <canvas id="canvas" height="600" width="800"></canvas>
 
-
         <%- include('../partials/not-signed-in-nav-and-scripts'); %>
         <%  
-    var script_text = '<script>var name_entry = "default"; var shape_choice = "square"; var color_choice = "blue";</script>'
+    var script_text = '<script>var name_entry = \'' +name+ '\'; var shape_choice = \'' +shape+ '\'; var color_choice = \'' +color+ '\';</script>'
         %>
         <%- script_text %>
         <script src="/scripts/game-room.js"></script>

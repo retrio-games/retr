@@ -85,12 +85,15 @@ app.post('/character-customization', function(request, response){
 	var query = 'INSERT INTO display (display_name, shape, color) VALUES ( \''+ name +'\', \''+ shape +'\', \''+ color +'\');'
 	db.query(query)
 	response.render('pages/game-room',{
+		name:name,
+		color:color,
+		shape:shape,
 		css: "sign-in-and-sign-up.css", 
 		title: "Retr.io Games: Sign In"
+		
 	});
 	// match display_ID incremented in display table to the empty display_ID in user table
 });
-
 
 /* INTEGRATE THIS
 sign in 
@@ -116,13 +119,14 @@ app.get('/sign-in', function(request, response) {
 
 /* game-room */
 
-app.get('/game-room', function(request, response) {
-	response.render('pages/game-room',{
-		css: "game-room.css", 
-		title: "Retr.io Games: Game Room",
-		data: null
-	});
-});
+//app.get('/game-room', function(request, response) {
+//	db.any(query)
+//	response.render('pages/game-room',{
+//		css: "game-room.css", 
+//		title: "Retr.io Games: Game Room",
+//		data: 
+//	});
+//});
 
 app.get('/game-of-life', function(request, response) {
 	response.render('pages/game-of-life',{
