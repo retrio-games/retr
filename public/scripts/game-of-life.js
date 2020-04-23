@@ -100,6 +100,22 @@ function setupControlButtons() {
     clearButton.onclick = clearButtonHandler;
     var randomButton = document.getElementById("random");
     randomButton.onclick = randomButtonHandler;
+    var backButton = document.getElementById("Back");
+    backButton.onclick = backButtonHandler;
+}
+
+function backButtonHandler() {
+    $.ajax({
+        type: 'GET',
+        url: '/game-room',
+        success: function (data) {
+          window.location.replace('/game-room');
+        },
+        error: function (xhr) {
+          window.alert(JSON.stringify(xhr));
+          window.location.replace('/');
+        }
+      });
 }
 
 function randomButtonHandler() {

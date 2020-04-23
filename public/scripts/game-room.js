@@ -156,8 +156,24 @@ function movementHandler(character) {
 }
 
 const character = new Character(name_entry, shape_choice, color_choice, 10, 400, 550);
-const gameOfLife = new Table(10, 300, 150, 100, "Game of Life", "../views/game-of-life.html");
-const blackjack = new Table(640, 300, 150, 100, "Blackjack", "../views/blackJack.html");
+const gameOfLife = new Table(10, 300, 150, 100, "Game of Life", "/game-of-life");
+const blackjack = new Table(640, 300, 150, 100, "Blackjack", "/blackJack");
+
+function swapPage(route, routeType) {
+    var data = {};
+    $.ajax({
+      type: routeType,
+      url: route,
+      //data,
+      success: function (data) {
+        window.location.replace(route);
+      },
+      error: function (xhr) {
+        window.alert(JSON.stringify(xhr));
+        window.location.replace('/');
+      }
+    });
+  }
 
 function characterIsInTable (character, table) {
     let tableRightBound = table.x + table.width;
@@ -169,6 +185,7 @@ function characterIsInTable (character, table) {
         return 0;
     }
 }
+
 function roomDriver() {
     context.clearRect(0, 0, canvas.width, canvas.height);
     character.draw();
@@ -177,10 +194,10 @@ function roomDriver() {
     blackjack.draw();
     blackjack.drawName();
     if(characterIsInTable(character, gameOfLife)) {
-        window.location.href = gameOfLife.page;
+        swapPage(gameOfLife.page, 'GET');
     }
     if(characterIsInTable(character, blackjack)) {
-        window.location.href = blackjack.page;
+        swapPage(blackjack.page, 'GET');
 
     }
     movementHandler(character);

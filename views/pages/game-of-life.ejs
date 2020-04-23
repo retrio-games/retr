@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+
+    <!-- HEAD -->
+    <head>
+        <%- include('../partials/head'); %> 
+    </head>
+
+    <body class="text-center">
+   
+        <!-- Title -->
+        <h1>Game of Life</h1>
+        
+        <!-- Game -->
+        <div id="game">
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button id="start" class="btn btn-secondary btn-sm">Start</button>
+            <button id="clear" class="btn btn-secondary btn-sm">Clear</button>
+            <button id="random" class="btn btn-secondary btn-sm">Random</button>
+            <button id="Back" class="btn btn-secondary btn-sm">Back to Game Room</button>
+        </div>
+
+        <%- include('../partials/not-signed-in-nav-and-scripts'); %>
+        <script src="/scripts/game-of-life.js"></script>
+
+    </body>
+</html>

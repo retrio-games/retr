@@ -53,5 +53,11 @@ app.get('/game-of-life', function(request, response) {
 	});
 });
 
+app.get('/blackJack', function(request, response) {
+	response.sendFile('views/blackJack.html',{
+		root:__dirname
+	});
+});
+
 const port = process.env.PORT || 8000;
 app.listen(port);
