@@ -29,6 +29,7 @@ const db = new Pool({
 
 /* Cookie */
 
+var currentUser=''
 var user = {
   userID: "",
   displayID: "",
@@ -65,8 +66,11 @@ app.post('/sign-up', function(request, response){
 	user.userID = request.body.email; // somehow get the actual user_ID not the email
 	var email = request.body.email;
 	var pwd   = request.body.password;
-	var query = 'INSERT INTO users (username, user_password) VALUES (\''+ email +'\', \''+ pwd +'\');'
+	var query = 'INSERT INTO users (user_id, user_password) VALUES (\''+email+'\', \''+ pwd +'\');'
+	var query1= 'INSERT INTO stats (stats_id, games_played, account_balance, games_won, games_lost, net_profit) VALUES (\''+email+'\',0,100,0,0,0);'
 	db.query(query)
+	db.query(query1)
+	currentID = email;
 	response.render('pages/character-customization',{
 		css: "character-customization.css", 
 		title: "Retr.io Games: Character Customization"
@@ -84,7 +88,7 @@ app.post('/character-customization', function(request, response){
 	var name = request.body.charName;
 	var color = request.body.charColor;
 	var shape = request.body.charShape;
-	var query = 'INSERT INTO display (display_name, shape, color) VALUES ( \''+ name +'\', \''+ shape +'\', \''+ color +'\');'
+	var query = 'INSERT INTO display (display_id, display_name, shape, color) VALUES (\''+currentID+'\', \''+ name +'\', \''+ shape +'\', \''+ color +'\');'
 	db.query(query)
 	response.render('pages/game-room',{
 		name:name,
