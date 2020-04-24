@@ -168,14 +168,20 @@ app.post('/sign-in', function(request, response){
 
 /* game-room */
 
-//app.get('/game-room', function(request, response) {
-//	db.any(query)
-//	response.render('pages/game-room',{
-//		css: "game-room.css",
-//		title: "Retr.io Games: Game Room",
-//		data:
-//	});
-//});
+app.get('/game-room', function(request, response) {
+	var query = 'SELECT display_name,shape, color FROM display WHERE display_id = \''+currentUser+'\';'
+	db.any(query)
+	.then(function(rows) {
+		console.log(rows);
+		response.render('pages/game-room',{
+			css: "game-room.css",
+			title: "Retr.io Games: Game Room",
+			name: rows[0].display_name,
+			shape: rows[0].shape,
+			color: rows[0].color
+		});
+	});
+});
 
 app.get('/game-of-life', function(request, response) {
 	response.render('pages/game-of-life',{
@@ -212,7 +218,7 @@ app.post('/blackJack', function(request, response) {
 		name: 'bruh',
 		color: 'green',
 		shape: 'circle',
-    	        css: "game-room.css",
+    	css: "game-room.css",
 		title: "Retr.io Games: Blackjack"
 	});
 });
