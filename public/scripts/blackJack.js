@@ -22,8 +22,8 @@ appData.gameRunning = false;
 //---
 var account_balance;
 var display_name;
-var hands_won;
-var hands_lost;
+var games_won;
+var games_lost;
 var net_profit;
 
 function Card(v, suit, id, imgname)
@@ -289,7 +289,7 @@ function startGame()
         var userInput = parseInt(appData.pBet.value);
         if(userInput > account_balance)
         {
-            
+
         }
         var ml = appData.money.value;
         document.getElementById('moneyLeft').innerHTML = "Money left: " + ml;
@@ -310,12 +310,18 @@ function endGame()
 {
     console.log(typeof account_balance);
     console.log(typeof appData.money.value);
+    console.log(typeof games_won);
+    console.log(typeof games_lost);
     alert("game over");
     appData.gameRunning = false;
     appData.pBet.value = "";
     //appData.playerName.style.visibility = "visible";
     account_balance = parseInt(account_balance) + parseInt(appData.money.value);
     document.getElementById('moneytotal').value = account_balance;
+    document.getElementById('wins').value = parseInt(games_won);
+    document.getElementById('losses').value = parseInt(games_lost);
+
+
     appData.money.style.visibility = "visible";
     appData.pBet.style.visibility = "hidden";
     appData.hitButton.style.visibility = "hidden";
@@ -647,6 +653,7 @@ function dealerTurn()
 function lose()
 {
     alert("you lost");
+    games_lost++;
     var b = parseInt(appData.pBet.value);
     var ml = parseInt(appData.money.value);
     var newAmount = ml - b;
@@ -660,6 +667,7 @@ function lose()
 function win()
 {
     alert("you won");
+    games_won++;
     var b = parseInt(appData.pBet.value);
     var ml = parseInt(appData.money.value);
     var newAmount = ml + b;

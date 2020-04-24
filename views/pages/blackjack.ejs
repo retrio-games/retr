@@ -3,7 +3,7 @@
 
     <!-- HEAD -->
     <head>
-        <%- include('../partials/head'); %> 
+        <%- include('../partials/head'); %>
         <style>
             .tableBackground  {
                 display: block;
@@ -43,6 +43,8 @@
             <button alt="start" id="start" onclick="startGame()">Play</button>
                 <form href="/blackJack" method="POST">
                     <input for="accountbalance" id='moneytotal' name="balance" value="0" hidden="hidden"></input>
+                    <input for="gameswon" id='wins' name="gw" value="0" hidden="hidden"></input>
+                    <input for="gameslost" id='losses' name="gl" value="0" hidden="hidden"></input>
             <button alt="end" id="end" type="submit" onclick="endGame()">Quit Game</button>
                 </form>
         </div></center>
@@ -105,9 +107,9 @@
                 <button alt="hit" id="runround" onclick="runRound()">Play Round</button>
             </div>
         </div>
-            
+
         <%
-            var script_text = '<script>var display_name= \'' +name+ '\'; var account_balance= \'' +balance+ '\'; </script>'
+            var script_text = '<script>var display_name= \'' +name+ '\'; var account_balance= \'' +balance+ '\'; var games_won = \'' +gw+ '\'; var gl = \'' +gw+ '\'; </script>'
         %>
         <%- script_text %>
         <script src="/scripts/blackJack.js"></script>

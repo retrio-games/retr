@@ -195,16 +195,22 @@ app.get('/game-of-life', function(request, response) {
 app.get('/blackJack', function(request, response) {
 	var query = 'SELECT account_balance FROM stats WHERE stats_id = \''+currentUser+'\';'
 	var query1 = 'SELECT display_name FROM display WHERE display_id = \''+currentUser+'\';'
+    var query2 = 'SELECT games_won FROM display WHERE display_id = \''+currentUser+'\';'
+    var query3 = 'SELECT games_lost FROM display WHERE display_id = \''+currentUser+'\';'
   db.task('get-everything', task => {
         return task.batch([
             task.any(query),
             task.any(query1),
+            task.any(query2),
+            task.any(query3)
         ]);
     })
     .then(info => {
         response.render('pages/blackjack',{
 		balance:info[0][0].account_balance,
 	  	name:info[1][0].display_name,
+        gw:info[2][0].games_won,
+        gl:info[3][0].games_lost,
     		  css: "sign-in-and-sign-up.css",
     		title: "Retr.io Games: Blackjack"
       });
