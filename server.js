@@ -86,10 +86,9 @@ app.post('/character-customization', function(request, response){
 		name: name,
 		color: color,
 		shape: shape,
-    	        css: "game-room.css",
+    css: "charcter-customization.css",
 		title: "Retr.io Games: Sign In"
 	});
-	// match display_ID incremented in display table to the empty display_ID in user table
 });
 
 app.get('/sign-in', function(request, response) {
@@ -178,12 +177,12 @@ app.get('/blackJack', function(request, response) {
     })
     .then(info => {
         response.render('pages/blackjack',{
-		balance:info[0][0].account_balance,
-	  	name:info[1][0].display_name,
-        gw:info[2][0].games_won,
-        gl:info[3][0].games_lost,
-    		  css: "sign-in-and-sign-up.css",
-    		title: "Retr.io Games: Blackjack"
+					balance:info[0][0].account_balance,
+					name:info[1][0].display_name,
+					gw:info[2][0].games_won,
+					gl:info[3][0].games_lost,
+					css: "sign-in-and-sign-up.css",
+					title: "Retr.io Games: Blackjack"
       });
     });
 });
@@ -213,7 +212,7 @@ app.post('/blackJack', function(request, response) {
     });
 });
 
-/* sign-out -- delete cookies */
+/* sign-out */
 app.get('/sign-out', function(request, response) {
       currentUser = '';
 	response.render('pages/home',{
