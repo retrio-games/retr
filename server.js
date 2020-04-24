@@ -193,7 +193,6 @@ app.get('/game-of-life', function(request, response) {
 /* black-jack */
 
 app.get('/blackJack', function(request, response) {
-	currentUser='gggg@gmai.com'
 	var query = 'SELECT account_balance FROM stats WHERE stats_id = \''+currentUser+'\';'
 	var query1 = 'SELECT display_name FROM display WHERE display_id = \''+currentUser+'\';'
   db.task('get-everything', task => {
@@ -215,14 +214,28 @@ app.get('/blackJack', function(request, response) {
 app.post('/blackJack', function(request, response) {
 	console.log(request.body.balance);
 	var query = 'UPDATE stats SET account_balance = '+request.body.balance+ ' WHERE stats_id = \''+currentUser+'\';';
-	db.query(query)	
-	response.render('pages/game-room',{	
-		name: 'bruh',
-		color: 'green',
-		shape: 'circle',
-    	css: "game-room.css",
+	var query1 = 'SELECT shape FROM display WHERE display_id= \''+currentUser+'\';'
+	var query2 = 'SELECT color FROM display WHERE display_id= \''+currentUser+'\';'
+	var query3 = 'SELECT display_name FROM display WHERE display_id = \''+currentUser+'\';'
+
+  db.task('get-everything', task => {
+        return task.batch([
+            task.any(query),
+            task.any(query1),
+            task.any(query2),
+            task.any(query3),
+        ]);
+    })
+    .then(info => {
+	console.log(info);
+        response.render('pages/game-room',{
+		shape: info[1][0].shape,
+		color: info[2][0].color,
+		name: info[3][0].display_name,
+		css: "game-room.css",
 		title: "Retr.io Games: Blackjack"
-	});
+      });
+    });
 });
 
 /* sign-out -- delete cookies */
@@ -231,4 +244,3 @@ app.get('/sign-out', (request, response) => {
 
 const port = process.env.PORT || 3000;
 app.listen(port);
-console.log('Running on port ' + port);
