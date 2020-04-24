@@ -3,23 +3,26 @@
 
     <!-- HEAD -->
     <head>
-        <%- include('../partials/head'); %> 
+        <%- include('../partials/head'); %>
     </head>
     <!-- BODY -->
     <body class="text-center">
-   
+
         <!-- Title -->
         <h1>Game Room</h1>
-        
+
         <!-- Game -->
         <canvas id="canvas" height="600" width="800"></canvas>
         <ul class="nav justify-content-center">
             <li class="nav-item">
                 <a class="nav-link" href="/sign-out">Sign Out</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/stats">Stats</a>
+            </li>
         </ul>
 
-        <%  
+        <%
     var script_text = '<script>var name_entry = \'' +name+ '\'; var shape_choice = \'' +shape+ '\'; var color_choice = \'' +color+ '\';</script>'
         %>
         <%- script_text %>
