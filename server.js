@@ -23,7 +23,7 @@ const dbConfig = {
 	host: 'localhost',
 	port: 5432,
 	database: 'casino',
-	user: 'nattobiason',
+	user: 'postgres',
 	password: 'password'
 };
 
@@ -229,13 +229,14 @@ app.get('/stats', function(request, response) {
 	var query = 'SELECT * FROM stats WHERE stats_id = \''+currentUser+'\';'
 	db.any(query)
 	.then(function(rows) {
-		response.render('pages/stats-room',{
+		response.render('pages/stats',{
 			css: "game-room.css",
 			title: "Retr.io Games: Stats Room",
 			games_played: rows[0].games_played,
 			hands_won: rows[0].games_won,
 			hands_lost: rows[0].games_lost,
-			net_profit: rows[0].net_profit
+			net_profit: rows[0].net_profit,
+			account_balance: rows[0].account_balance
 		});
 	});
 })
