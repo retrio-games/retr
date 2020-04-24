@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+
+    <!-- HEAD -->
+    <head>
+        <%- include('../partials/head'); %> 
+        <style>
+            .tableBackground  {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                background-image: url("/images/table2.png");
+                background-repeat:no-repeat;
+                background-position: center center;
+                /*background-size: 1100px 900px;*/
+                width: 100%;
+                height: 100%;
+                }
+            body{
+                background-image: url("/images/redFloor.jpg");
+                background-color: #CCCCCC;
+            }
+            </style>
+    </head>
+    <body onload="setup()">  <!--onload="startGame()"-->
+        <center><h1 style="color:white">BlackJack</h1></center>
+        <!-- enter player name and buyin -->
+        <!-- <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="name"></label>
+                <input type="text" class="form-control" id="pname" placeholder="Player Name">
+            </div>
+            <center><div class="form-group col-md-6">
+                <label for="buyin"></label>
+                <input type="text" class="form-control" id="buyin" placeholder="Buy-in Amount">
+            </div></center>
+        </div> -->
+        <center><div class="form-group col-md-6">
+            <label for="buyin"></label>
+            <input type="text" class="form-control" id="buyin" placeholder="Buy-in Amount">
+        </div></center>
+        <center><div class="buttonbox" id="startgame">
+            <button alt="start" id="start" onclick="startGame()">Play</button>
+        </div></center>
+        <!-- <div class="form-row">
+            <div class="buttonbox" id="backbutton">
+                <button alt="back" id="back" onclick="window.location.href = 'https://w3docs.com';">Back To Casino</button>
+            </div>
+            <center><div class="buttonbox" id="startgame">
+                <button alt="start" id="start" onclick="startGame()">Play</button>
+            </div></center>
+        </div> -->
+        <br>
+        <div class="tableBackground">
+        <center><p style="color:white" id="cardsLeft">Cards left: </p></center>
+        <br>
+        <center><p style="color:white">Dealer hand</p></center>
+        <div class="row justify-content-center" id="dealerHand">
+            <img id="dcard1" width="50" height="80" src="/images/cards/emptycardslot.PNG">
+            &nbsp;
+            <img id="dcard2" width="50" height="80" src="/images/cards/emptycardslot.PNG">
+        </div>
+        <center><p id="dtotal">Dealer Hand Total: ?</p></center>
+        <br>
+        <center><p>Your hand</p></center>
+        <div class="row justify-content-center" id="playerHand">
+            <img id="pcard1" width="50" height="80" src="/images/cards/emptycardslot.PNG">
+            &nbsp;
+            <img id="pcard2" width="50" height="80" src="/images/cards/emptycardslot.PNG">
+        </div>
+            <center><p id="ptotal">Your Hand Total: 0</p></center>
+            <div class="row justify-content-center">
+                <p style="color:white" id="moneyLeft">Money left: </p>
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <p style="color:white" id="currbet">Your bet: </p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="form-group col-md-6">
+                <label for="betamount"></label>
+                <input type="text" class="form-control" id="playerBet" placeholder="Enter bet">
+            </div>
+            <!--<input type="submit" value="Submit" onclick="writeBet()">-->
+            <button alt="writebet" id="writebet" onclick="writeBet()">Submit Bet</button>
+        </div>
+        <div class="row justify-content-center">
+            <div class="buttonbox" id="hitbutton">
+                <button alt="hit" id="hit" onclick="hit()">Hit</button>
+            </div>
+            <div class="buttonbox" id="staybutton">
+                <button alt="stay" id="stay" onclick="stay()">Stay</button>
+            </div>
+            <div class="buttonbox" id="ddbutton">
+                <button alt="stay" id="doubledown" onclick="doubleDown()">DoubleDown</button>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="buttonbox" id="hitbutton">
+                <button alt="hit" id="runround" onclick="runRound()">Play Round</button>
+            </div>
+        </div>
+        <script src="/scripts/blackJack.js"></script>
+    </body>
