@@ -159,8 +159,8 @@ app.post('/sign-in', function(request, response){
           name: info[1][0].display_name,
       		color: info[1][0].color,
       		shape: info[1][0].shape,
-    		  css: "sign-in-and-sign-up.css",
-    		title: "Retr.io Games: Sign In"
+    		  css: "game-room.css",
+    		title: "Retr.io Games: Game Room"
       })
       }
     })
@@ -190,8 +190,8 @@ app.get('/game-of-life', function(request, response) {
 /* black-jack */
 
 app.get('/blackJack', function(request, response) {
-	response.sendFile('views/blackJack.html',{
-		root:__dirname
+	response.render('pages/blackJack',{
+		title: "Retr.io Games: Blackjack"
 	});
 });
 
