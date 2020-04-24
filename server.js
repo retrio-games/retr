@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const path = require('path');
-//var session = require('express-session');
 var pgp = require('pg-promise')();
 const favicon = require('serve-favicon');
 
@@ -19,40 +18,19 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/views'));
 app.use(favicon(path.join(__dirname, '/public/images', 'favicon.ico')));
 
-// const Pool = require('pg').Pool
-// const db = new Pool({
-//   user: 'nattobiason',
-//   host: 'localhost',
-//   database: 'casino',
-//   password: 'password',
-//   port: 5432,
-// })
+
 const dbConfig = {
 	host: 'localhost',
 	port: 5432,
 	database: 'casino',
-	user: 'postgres',
+	user: 'nattobiason',
 	password: 'password'
 };
 
 var db = pgp(dbConfig);
 
-/* Cookie */
 
 var currentUser=''
-// var user = {
-//   userID: "",
-//   displayID: "",
-//   statsID: ""
-// }
-// app.get('/setuser', function(request, response){
-//   response.cookie("userID", user.userID);
-//   response.cookie("displayID", user.displayID);
-//   response.cookie("statID", user.statID);
-//   response.send('user data added to cookie');
-// });
-
-/*Variables*/
 
 /* basic route to home page */
 app.get('/', function(request, response) {
@@ -97,12 +75,6 @@ app.post('/sign-up', function(request, response){
 	});
 });
 
-//app.get('/character-customization', function(request, response) {
-//	response.render('pages/character-customization',{
-//		css: "character-customization.css",
-//		title: "Retr.io Games: Character Customization"
-//	});
-//});
 
 app.post('/character-customization', function(request, response){
 	var name = request.body.charName;
@@ -252,6 +224,21 @@ app.get('/sign-out', function(request, response) {
 		title: "Retr.io Games"
 	});
 });
+
+app.get('/stats', function(request, response) {
+	var query = 'SELECT * FROM stats WHERE stats_id = \''+currentUser+'\';'
+	db.any(query)
+	.then(function(rows) {
+		response.render('pages/stats-room',{
+			css: "game-room.css",
+			title: "Retr.io Games: Stats Room",
+			games_played: rows[0].games_played,
+			hands_won: rows[0].games_won,
+			hands_lost: rows[0].games_lost,
+			net_profit: rows[0].net_profit
+		});
+	});
+})
 
 const port = process.env.PORT || 3000;
 app.listen(port);
