@@ -191,7 +191,7 @@ app.get('/blackJack', function(request, response) {
 
 app.post('/blackJack', function(request, response) {
 	console.log(request.body.balance);
-	var query = 'UPDATE stats SET account_balance = \''+request.body.balance+ ', games_won = \''+request.body.gw+', games_lost = \''+request.body.gl+' WHERE stats_id = \''+currentUser+'\';';
+	var query = 'UPDATE stats SET account_balance = \''+request.body.balance+ '\', games_won = \''+request.body.gw+'\', games_lost = \''+request.body.gl+'\' WHERE stats_id = \''+currentUser+'\';';
 	var query1 = 'SELECT shape FROM display WHERE display_id= \''+currentUser+'\';'
 	var query2 = 'SELECT color FROM display WHERE display_id= \''+currentUser+'\';'
 	var query3 = 'SELECT display_name FROM display WHERE display_id = \''+currentUser+'\';'

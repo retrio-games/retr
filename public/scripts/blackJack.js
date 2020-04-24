@@ -22,8 +22,8 @@ appData.gameRunning = false;
 //---
 var account_balance;
 var display_name;
-var games_won;
-var games_lost;
+var games_won = parseInt(games_won);
+var games_lost = parseInt(games_lost);
 var net_profit;
 
 function Card(v, suit, id, imgname)
