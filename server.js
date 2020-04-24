@@ -31,7 +31,7 @@ const dbConfig = {
 	host: 'localhost',
 	port: 5432,
 	database: 'casino',
-	user: 'nattobiason',
+	user: 'postgres',
 	password: 'password'
 };
 
@@ -135,10 +135,10 @@ app.get('/sign-in', function(request, response) {
 sign in */
 app.post('/sign-in', function(request, response){
   var email = request.body.email;
-  var currentUser = email;
+  currentUser = email;
   var pwd = request.body.password;
-  var query = 'SELECT count(user_ID) FROM users WHERE user_ID = \''+ email +'\' AND user_password = \''+ pwd +'\';'
-  var result = 'SELECT shape, color, display_name FROM display WHERE display_ID = \''+ email +'\';'
+  var query = 'SELECT count(user_ID) FROM users WHERE user_id = \''+ email +'\' AND user_password = \''+ pwd +'\';'
+  var result = 'SELECT shape, color, display_name FROM display WHERE display_id = \''+ email +'\';'
   db.task('get-everything', task => {
         return task.batch([
             task.any(query),
@@ -154,7 +154,7 @@ app.post('/sign-in', function(request, response){
       return;
       }
       else{
-        console.log(info[1][0].display_name);
+        console.log(info[1][0].display_id);
         response.render('pages/game-room',{
           name: info[1][0].display_name,
       		color: info[1][0].color,
