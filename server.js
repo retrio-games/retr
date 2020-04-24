@@ -235,7 +235,6 @@ app.get('/stats', function(request, response) {
 			games_played: rows[0].games_played,
 			hands_won: rows[0].games_won,
 			hands_lost: rows[0].games_lost,
-			net_profit: rows[0].net_profit,
 			account_balance: rows[0].account_balance
 		});
 	});
