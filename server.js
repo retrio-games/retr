@@ -239,7 +239,12 @@ app.post('/blackJack', function(request, response) {
 });
 
 /* sign-out -- delete cookies */
-app.get('/sign-out', (request, response) => {
+app.get('/sign-out', function(request, response) {
+      currentUser = '';
+	response.render('pages/home',{
+		css: "home.css",
+		title: "Retr.io Games"
+	});
 });
 
 const port = process.env.PORT || 3000;
