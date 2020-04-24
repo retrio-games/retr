@@ -41,6 +41,9 @@
         </div></center>
         <center><div class="buttonbox" id="startgame">
             <button alt="start" id="start" onclick="startGame()">Play</button>
+                <form href="/blackJack" method="POST">
+            <button alt="end" id="end" type="submit" onclick="endGame()">Quit Game</button>
+                </form>
         </div></center>
         <!-- <div class="form-row">
             <div class="buttonbox" id="backbutton">
@@ -105,5 +108,5 @@
             var script_text = '<script>var display_name= \'' +name+ '\'; var account_balance= \'' +balance+ '\'; </script>'
         %>
         <%- script_text %>
-        <script src="/scripts/blackjack.js"></script>
+        <script src="/scripts/blackJack.js"></script>
     </body>

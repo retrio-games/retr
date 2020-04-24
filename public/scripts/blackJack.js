@@ -20,7 +20,7 @@ appData.roundRunning = false;
 appData.gameRunning = false;
 
 //---
-var account_balance = 10;
+var account_balance;
 var display_name;
 var hands_won;
 var hands_lost;
@@ -218,6 +218,7 @@ function setup()
     appData.pBet.value = "";
     appData.pBet.style.visibility = "hidden";
     appData.hitButton.style.visibility = "hidden";
+    document.getElementById('end').style.visibility = "hidden";
     appData.stayButton.style.visibility = "hidden";
     appData.doubleButton.style.visibility = "hidden";
     appData.roundButton.style.visibility = "hidden";
@@ -273,9 +274,10 @@ function startGame()
     {
         appData.gameRunning = true;
 
+        document.getElementById('end').style.visibility = "visible";
         //chage play button to quit button
-        appData.startButton.innerHTML = "Quit Game";
-        appData.startButton.setAttribute('onclick', 'endGame()');
+        appData.startButton.style.visibility = "hidden";
+        //appData.startButton.setAttribute('onclick', 'endGame()');
 
         //hide player name and buyin inputs
         appData.money.style.visibility = "hidden";

@@ -114,7 +114,7 @@ app.post('/character-customization', function(request, response){
 		name: name,
 		color: color,
 		shape: shape,
-		css: "sign-in-and-sign-up.css",
+    	        css: "game-room.css",
 		title: "Retr.io Games: Sign In"
 	});
 	// match display_ID incremented in display table to the empty display_ID in user table
@@ -206,14 +206,16 @@ app.get('/blackJack', function(request, response) {
     });
 });
 
-//app.post('/blackJack', function(request, response) {
-//	
-//	display name
-//	account balance
-//	response.render('pages/blackJack',{
-//		title: "Retr.io Games: Blackjack"
-//	});
-//});
+app.post('/blackJack', function(request, response) {
+	response.render('pages/game-room',{
+		
+		name: 'bruh',
+		color: 'green',
+		shape: 'circle',
+    	        css: "game-room.css",
+		title: "Retr.io Games: Blackjack"
+	});
+});
 
 /* sign-out -- delete cookies */
 app.get('/sign-out', (request, response) => {
