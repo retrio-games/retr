@@ -5,7 +5,7 @@ appData.hitButton = document.getElementById('hit');
 appData.stayButton = document.getElementById('stay');
 appData.doubleButton = document.getElementById('ddbutton');
 appData.roundButton = document.getElementById('runround');
-appData.playerName = document.getElementById('pname');
+//appData.playerName = document.getElementById('pname');
 appData.money = document.getElementById('buyin');
 appData.pBet = document.getElementById('playerBet');
 appData.pHand = document.getElementById('playerHand');
@@ -18,6 +18,13 @@ appData.players = []; //array of all player, dealer last
 appData.canPlayTurn = false;
 appData.roundRunning = false;
 appData.gameRunning = false;
+
+//---
+var account_balance = 10;
+var display_name;
+var hands_won;
+var hands_lost;
+var net_profit;
 
 function Card(v, suit, id, imgname)
 {
@@ -93,7 +100,7 @@ function Player(n, c)
 var initializeCards = function()
 {
     var allCards = [];
-    //document.write("start init"); 
+    //document.write("start init");
     //alert("start init");
 
     allCards.push(new Card("ACE","Diamond",0,"../resources/images/cards/acediamond.PNG"));
@@ -215,7 +222,7 @@ function setup()
     appData.doubleButton.style.visibility = "hidden";
     appData.roundButton.style.visibility = "hidden";
     document.getElementById('writebet').style.visibility = "hidden";
-    appData.playerName.value = "";
+    //appData.playerName.value = "";
 }
 
 var placeBet = function()
@@ -248,68 +255,52 @@ function test()
 
 function startGame()
 {
-    //alert("start game");
+    //check for valid int
+    var userInput = parseInt(appData.money.value);
+    var okay = false;
+    while(!okay && userInput != -1){
+        if(userInput <= account_balance && userInput != -1)
+        {
+            okay = true;
+        }
+        else{
+            alert("Not enough money in account");
+            userInput = -1;
+        }
+    }
 
-    appData.gameRunning = true;
+    if(okay)
+    {
+        appData.gameRunning = true;
 
-    //chage play button to quit button
-    appData.startButton.innerHTML = "Quit Game";
-    appData.startButton.setAttribute('onclick', 'endGame()');
+        //chage play button to quit button
+        appData.startButton.innerHTML = "Quit Game";
+        appData.startButton.setAttribute('onclick', 'endGame()');
 
-    //hide player name and buyin inputs
-    appData.money.style.visibility = "hidden";
-    appData.playerName.style.visibility = "hidden";
+        //hide player name and buyin inputs
+        appData.money.style.visibility = "hidden";
+        //appData.playerName.style.visibility = "hidden";
 
-    //display balance
-    var ml = appData.money.value;
-    document.getElementById('moneyLeft').innerHTML = "Money left: " + ml;
+        //display balance
 
-    //add player
-    addPlayer();
-    //add dealer
-    addDealer();
+        var userInput = parseInt(appData.pBet.value);
+        if(userInput > account_balance)
+        {
 
-    // for(var i = 0; i < appData.players.length; i++)
-    // {
-    //     document.write(appData.players[i].name + ", ");
-    // }
+        }
+        var ml = appData.money.value;
+        document.getElementById('moneyLeft').innerHTML = "Money left: " + ml;
 
-    appData.allCards = initializeCards(); //initialize all cards in order
-    appData.deck = shuffle(); //create shuffled deck
-    //document.getElementById('cardsLeft').innerHTML = "Cards left: " + appData.deck.length;
+        //add player
+        addPlayer();
+        //add dealer
+        addDealer();
 
-    //placeBet();
-    // while(appData.gameRunning == true)
-    // {
-    //     if(appData.roundRunning == false){
-    //         runRound();
-    //     }
-    // }
-    //$.when(runRound()).then(runRound());
-    runRound();
-    //appData.roundButton.style.visibility = "visible";
-    // if(appData.roundRunning == false)
-    // {
-    //     alert("run round");
-    //     runRound();
-    // }
-    //alert("run again");
-    //runRound();
+        appData.allCards = initializeCards(); //initialize all cards in order
+        appData.deck = shuffle(); //create shuffled deck
 
-    // if(appData.canPlayTurn == true){
-    //     dealCards();
-    //     appData.pBet.style.visibility = "hidden";
-    //     appData.hitButton.style.visibility = "visible";
-    //     appData.stayButton.style.visibility = "visible";
-    //     document.getElementById('writebet').style.visibility = "hidden";
-    //     appData.hitButton.onclick = hit();
-    //     appData.stayButton.onclick = stay();
-    // }
-    //document.getElementById('writebet').onclick = turn();
-
-    //displayPlayerHand();
-    //deckPrinter(appData.deck);
-    //runGame();
+        runRound();
+    }
 }
 
 function endGame()
@@ -317,7 +308,7 @@ function endGame()
     alert("game over");
     appData.gameRunning = false;
     appData.pBet.value = "";
-    appData.playerName.style.visibility = "visible";
+    //appData.playerName.style.visibility = "visible";
     appData.money.style.visibility = "visible";
     appData.pBet.style.visibility = "hidden";
     appData.hitButton.style.visibility = "hidden";
