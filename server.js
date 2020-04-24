@@ -213,8 +213,10 @@ app.get('/blackJack', function(request, response) {
 });
 
 app.post('/blackJack', function(request, response) {
-	response.render('pages/game-room',{
-		
+	console.log(request.body.balance);
+	var query = 'UPDATE stats SET account_balance = '+request.body.balance+ ' WHERE stats_id = \''+currentUser+'\';';
+	db.query(query)	
+	response.render('pages/game-room',{	
 		name: 'bruh',
 		color: 'green',
 		shape: 'circle',

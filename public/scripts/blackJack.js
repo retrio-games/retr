@@ -311,6 +311,10 @@ function endGame()
     appData.gameRunning = false;
     appData.pBet.value = "";
     //appData.playerName.style.visibility = "visible";
+    console.log(typeof account_balance);
+    console.log(typeof appData.money.value);
+    account_balance = parseInt(account_balance) + parseInt(appData.money.value);
+    document.getElementById('moneytotal').value = account_balance;
     appData.money.style.visibility = "visible";
     appData.pBet.style.visibility = "hidden";
     appData.hitButton.style.visibility = "hidden";
