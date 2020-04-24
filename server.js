@@ -224,7 +224,7 @@ app.get('/stats', function(request, response) {
 	db.any(query)
 	.then(function(rows) {
 		response.render('pages/stats-room',{
-			css: "stats-room.css",
+			css: "game-room.css",
 			title: "Retr.io Games: Stats Room",
 			games_played: rows[0].games_played,
 			hands_won: rows[0].games_won,
