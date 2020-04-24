@@ -205,7 +205,7 @@ app.post('/blackJack', function(request, response) {
 		color: info[2][0].color,
 		name: info[3][0].display_name,
 		css: "game-room.css",
-		title: "Retr.io Games: Blackjack"
+		title: "Retr.io Games: Game Room"
       });
     });
 });
