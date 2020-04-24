@@ -273,6 +273,7 @@ function startGame()
     if(okay)
     {
         appData.gameRunning = true;
+        account_balance -= userInput;
 
         document.getElementById('end').style.visibility = "visible";
         //chage play button to quit button
@@ -307,12 +308,12 @@ function startGame()
 
 function endGame()
 {
+    console.log(typeof account_balance);
+    console.log(typeof appData.money.value);
     alert("game over");
     appData.gameRunning = false;
     appData.pBet.value = "";
     //appData.playerName.style.visibility = "visible";
-    console.log(typeof account_balance);
-    console.log(typeof appData.money.value);
     account_balance = parseInt(account_balance) + parseInt(appData.money.value);
     document.getElementById('moneytotal').value = account_balance;
     appData.money.style.visibility = "visible";

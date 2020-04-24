@@ -13,8 +13,12 @@
         
         <!-- Game -->
         <canvas id="canvas" height="600" width="800"></canvas>
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link" href="/sign-out">Sign Out</a>
+            </li>
+        </ul>
 
-        <%- include('../partials/not-signed-in-nav-and-scripts'); %>
         <%  
     var script_text = '<script>var name_entry = \'' +name+ '\'; var shape_choice = \'' +shape+ '\'; var color_choice = \'' +color+ '\';</script>'
         %>
