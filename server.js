@@ -144,7 +144,6 @@ app.get('/game-room', function(request, response) {
 	var query = 'SELECT display_name,shape, color FROM display WHERE display_id = \''+currentUser+'\';'
 	db.any(query)
 	.then(function(rows) {
-		console.log(rows);
 		response.render('pages/game-room',{
 			css: "game-room.css",
 			title: "Retr.io Games: Game Room",
@@ -190,7 +189,6 @@ app.get('/blackJack', function(request, response) {
 });
 
 app.post('/blackJack', function(request, response) {
-	console.log(request.body.balance);
 	var query = 'UPDATE stats SET account_balance = \''+request.body.balance+ '\', games_won = \''+request.body.gw+'\', games_lost = \''+request.body.gl+'\' WHERE stats_id = \''+currentUser+'\';';
 	var query1 = 'SELECT shape FROM display WHERE display_id= \''+currentUser+'\';'
 	var query2 = 'SELECT color FROM display WHERE display_id= \''+currentUser+'\';'
@@ -205,7 +203,6 @@ app.post('/blackJack', function(request, response) {
         ]);
     })
     .then(info => {
-	console.log(info);
         response.render('pages/game-room',{
 		shape: info[1][0].shape,
 		color: info[2][0].color,
@@ -232,7 +229,7 @@ app.get('/stats', function(request, response) {
 		response.render('pages/stats',{
 			css: "game-room.css",
 			title: "Retr.io Games: Stats Room",
-			games_played: rows[0].games_played,
+			games_played: rows[0].games_won+rows[0].games_lost,
 			hands_won: rows[0].games_won,
 			hands_lost: rows[0].games_lost,
 			account_balance: rows[0].account_balance
