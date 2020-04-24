@@ -101,5 +101,9 @@
                 <button alt="hit" id="runround" onclick="runRound()">Play Round</button>
             </div>
         </div>
-        <script src="/scripts/blackJack.js"></script>
+        <%
+            var script_text = '<script>var display_name= \'' +name+ '\'; var account_balance= \'' +balance+ '\'; </script>'
+        %>
+        <%- script_text %>
+        <script src="/scripts/blackjack.js"></script>
     </body>

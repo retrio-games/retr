@@ -63,8 +63,6 @@ app.get('/', function(request, response) {
 });
 
 /* sign-up */
-/* TODO
-1. create a check to make sure username doesn't exist already*/
 app.get('/sign-up', function(request, response){
 	response.render('pages/sign-up',{
 		css: "sign-in-and-sign-up.css",
@@ -90,7 +88,7 @@ app.post('/sign-up', function(request, response){
   	var query1= 'INSERT INTO stats (stats_id, games_played, account_balance, games_won, games_lost, net_profit) VALUES (\''+email+'\',0,100,0,0,0);'
   	db.query(query)
   	db.query(query1)
-  	currentID = email;
+  	currentUser = email;
   	response.render('pages/character-customization',{
   		css: "character-customization.css",
   		title: "Retr.io Games: Character Customization"
@@ -110,7 +108,7 @@ app.post('/character-customization', function(request, response){
 	var name = request.body.charName;
 	var color = request.body.charColor;
 	var shape = request.body.charShape;
-	var query = 'INSERT INTO display (display_id, display_name, shape, color) VALUES (\''+currentID+'\', \''+ name +'\', \''+ shape +'\', \''+ color +'\');'
+	var query = 'INSERT INTO display (display_id, display_name, shape, color) VALUES (\''+currentUser+'\', \''+ name +'\', \''+ shape +'\', \''+ color +'\');'
 	db.query(query)
 	response.render('pages/game-room',{
 		name: name,
@@ -118,7 +116,6 @@ app.post('/character-customization', function(request, response){
 		shape: shape,
 		css: "sign-in-and-sign-up.css",
 		title: "Retr.io Games: Sign In"
-
 	});
 	// match display_ID incremented in display table to the empty display_ID in user table
 });
@@ -190,15 +187,36 @@ app.get('/game-of-life', function(request, response) {
 /* black-jack */
 
 app.get('/blackJack', function(request, response) {
-	response.render('pages/blackJack',{
-		title: "Retr.io Games: Blackjack"
-	});
+	currentUser='gggg@gmai.com'
+	var query = 'SELECT account_balance FROM stats WHERE stats_id = \''+currentUser+'\';'
+	var query1 = 'SELECT display_name FROM display WHERE display_id = \''+currentUser+'\';'
+  db.task('get-everything', task => {
+        return task.batch([
+            task.any(query),
+            task.any(query1),
+        ]);
+    })
+    .then(info => {
+        response.render('pages/blackjack',{
+		balance:info[0][0].account_balance,
+	  	name:info[1][0].display_name,
+    		  css: "sign-in-and-sign-up.css",
+    		title: "Retr.io Games: Blackjack"
+      });
+    });
 });
+
+//app.post('/blackJack', function(request, response) {
+//	
+//	display name
+//	account balance
+//	response.render('pages/blackJack',{
+//		title: "Retr.io Games: Blackjack"
+//	});
+//});
 
 /* sign-out -- delete cookies */
 app.get('/sign-out', (request, response) => {
-  response.clearCookie('userID');
-  response.clearCookie('displayID');
 });
 
 const port = process.env.PORT || 3000;
