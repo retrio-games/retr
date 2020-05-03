@@ -24,13 +24,6 @@ app.use(session({
 	saveUninitialized: false
 }));
 
-if(process.env.NODE_ENV === 'production') {
-	app.use(express.static('client/build'));
-}
-
-app.get('*', (request, response) => {
-	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
 
 
 /*const dbConfig = {
@@ -94,6 +87,7 @@ app.post('/sign-up', function(request, response){
 
 
 app.post('/character-customization', function(request, response){
+	currentUser = request.session.user;
 	var name = request.body.charName;
 	var color = request.body.charColor;
 	var shape = request.body.charShape;
@@ -259,5 +253,5 @@ app.get('/stats', function(request, response) {
 	});
 })
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT; //|| 3000;
 app.listen(port);
