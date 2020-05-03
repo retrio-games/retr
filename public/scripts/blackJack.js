@@ -799,7 +799,7 @@ function checkBankrupt()
         stat.innerHTML = "Bankrupt!";
         stat.style = "color:red";
         alert("Bankrupt!");
-        endGame();
+        //endGame();
     }
     else {
         //appData.roundButton.style.visibility = "visible";

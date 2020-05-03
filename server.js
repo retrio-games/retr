@@ -26,15 +26,14 @@ app.use(session({
 
 
 
-//const dbConfig = {
-//	host: 'localhost',
-//	port: 5432,
-//	database: 'casino',
-//	user: 'postgres',
-//	password: 'password'
-//};
+/*const dbConfig = {
+	host: 'localhost',
+	port: 5432,
+	database: 'casino',
+	user: 'postgres',
+	password: 'password'
+};*/
 
-//const dbString = 
 
 const dbConfig = process.env.DATABASE_URL;
 
@@ -256,6 +255,5 @@ app.get('/stats', function(request, response) {
 	});
 })
 
-const port = process.env.PORT; //|| 3000;
-//const port = 3000;
+const port = process.env.PORT || 3000;
 app.listen(port);
