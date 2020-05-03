@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 var pgp = require('pg-promise')();
 const favicon = require('serve-favicon');
+var session = require('express-session');
 
 
 const app = express();
@@ -17,6 +18,11 @@ app.use(express.static(__dirname + '/'));
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/views'));
 app.use(favicon(path.join(__dirname, '/public/images', 'favicon.ico')));
+app.use(session({
+	secret: 'test',
+	resave: false,
+	saveUninitialized: false
+}));
 
 
 /*const dbConfig = {
@@ -56,7 +62,8 @@ app.post('/sign-up', function(request, response){
 	db.query(query3)
 	.then( function(rows){
   		if (rows[0].count > 0){
-		      console.log("Email Already Used.");
+			  console.log("Email Already Used.");
+			  request.session.destroy();
 		      response.render('pages/sign-up',{
 		      	css: "sign-in-and-sign-up.css",
 		      	title: "Retr.io Games: Sign In"
@@ -67,7 +74,8 @@ app.post('/sign-up', function(request, response){
   	var query1= 'INSERT INTO stats (stats_id, games_played, account_balance, games_won, games_lost, net_profit) VALUES (\''+email+'\',0,100,0,0,0);'
   	db.query(query)
   	db.query(query1)
-  	currentUser = email;
+	  //currentUser = email;
+	request.session.user = email;
   	response.render('pages/character-customization',{
   		css: "character-customization.css",
   		title: "Retr.io Games: Character Customization"
@@ -105,7 +113,8 @@ app.get('/sign-in', function(request, response) {
 sign in */
 app.post('/sign-in', function(request, response){
   var email = request.body.email;
-  currentUser = email;
+  //currentUser = email;
+  request.session.user = email;
   var pwd = request.body.password;
   var query = 'SELECT count(user_ID) FROM users WHERE user_id = \''+ email +'\' AND user_password = \''+ pwd +'\';'
   var result = 'SELECT shape, color, display_name FROM display WHERE display_id = \''+ email +'\';'
@@ -165,6 +174,8 @@ app.get('/game-of-life', function(request, response) {
 /* black-jack */
 
 app.get('/blackJack', function(request, response) {
+	currentUser = request.session.user;
+	console.log(currentUser);
 	var query = 'SELECT account_balance FROM stats WHERE stats_id = \''+currentUser+'\';'
 	var query1 = 'SELECT display_name FROM display WHERE display_id = \''+currentUser+'\';'
     var query2 = 'SELECT games_won FROM stats WHERE stats_id = \''+currentUser+'\';'
@@ -190,6 +201,7 @@ app.get('/blackJack', function(request, response) {
 });
 
 app.post('/blackJack', function(request, response) {
+	currentUser = request.session.user;
 	var query = 'UPDATE stats SET account_balance = \''+request.body.balance+ '\', games_won = \''+request.body.gw+'\', games_lost = \''+request.body.gl+'\' WHERE stats_id = \''+currentUser+'\';';
 	var query1 = 'SELECT shape FROM display WHERE display_id= \''+currentUser+'\';'
 	var query2 = 'SELECT color FROM display WHERE display_id= \''+currentUser+'\';'
@@ -224,6 +236,7 @@ app.get('/sign-out', function(request, response) {
 });
 
 app.get('/stats', function(request, response) {
+	currentUser = request.session.user;
 	var query = 'SELECT * FROM stats WHERE stats_id = \''+currentUser+'\';'
 	db.any(query)
 	.then(function(rows) {
@@ -238,5 +251,5 @@ app.get('/stats', function(request, response) {
 	});
 })
 
-const port = process.env.PORT; //|| 3000;
+const port = process.env.PORT || 3000;
 app.listen(port);
