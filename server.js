@@ -35,7 +35,7 @@ app.use(session({
 };*/
 
 const dbConfig = {
-	host: process.env.DATABASE_URL,
+	host: process.env.DATABASE_URL+'?ssl=true',
 	ssl: true
 };
 
