@@ -33,7 +33,11 @@ app.use(session({
 	user: 'postgres',
 	password: 'password'
 };*/
-const dbConfig = process.env.DATABASE_URL;
+
+const dbConfig = {
+	host: process.env.DATABASE_URL,
+	ssl: true
+};
 
 var db = pgp(dbConfig);
 
@@ -97,7 +101,7 @@ app.post('/character-customization', function(request, response){
 		name: name,
 		color: color,
 		shape: shape,
-    	        css: "game-room.css",
+    	css: "game-room.css",
 		title: "Retr.io Games: Sign In"
 	});
 	// match display_ID incremented in display table to the empty display_ID in user table
