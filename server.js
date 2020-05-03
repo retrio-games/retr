@@ -19,13 +19,14 @@ app.use(express.static(__dirname + '/views'));
 app.use(favicon(path.join(__dirname, '/public/images', 'favicon.ico')));
 
 
-const dbConfig = {
+/*const dbConfig = {
 	host: 'localhost',
 	port: 5432,
 	database: 'casino',
 	user: 'postgres',
 	password: 'password'
-};
+};*/
+const dbConfig = process.env.DATABASE_URL;
 
 var db = pgp(dbConfig);
 
@@ -237,5 +238,5 @@ app.get('/stats', function(request, response) {
 	});
 })
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT; //|| 3000;
 app.listen(port);
