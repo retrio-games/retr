@@ -3,7 +3,7 @@
 
     <!-- HEAD -->
     <head>
-        <%- include('../partials/head'); %> 
+        <%- include('../partials/head'); %>
     </head>
 
     <!-- BODY -->
@@ -20,11 +20,11 @@
             <input type="password" id="inputPassword" name='password' class="form-control" placeholder="Password" required>
             <button type="submit" class="btn btn-secondary btn-lg" >Sign In</button>
         </form>
-        <script>
-            function signIn() {
-                //use ajax
-            }
-        </script>
-        <%- include('../partials/not-signed-in-nav-and-scripts'); %>
+        <ul class="nav justify-content-center">
+
+        <li class="nav-item">
+            <a class="nav-link" href="/sign-up">Sign Up</a>
+        </li>
+      </ul>
     </body>
 </html>

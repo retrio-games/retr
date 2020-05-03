@@ -33,9 +33,11 @@ app.use(session({
 	user: 'postgres',
 	password: 'password'
 };*/
-const dbString = "postgres://jbzadjlaaamuew:e52dd7d0d723b507ccc092da748804d2e30681640dc25c64408fed434ed22b6c@ec2-18-215-99-63.compute-1.amazonaws.com:5432/d7jc2eheg2ukl5"
 
-const dbConfig = dbString;
+const dbConfig = {
+	host: process.env.DATABASE_URL,
+	ssl: true
+};
 
 var db = pgp(dbConfig);
 
