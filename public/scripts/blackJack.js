@@ -239,6 +239,10 @@ var writeBet = function()
     var ml = parseInt(appData.money.value)
     if(userInput >= ml)
     {
+
+        stat = document.getElementById('status');
+        stat.innerHTML = "All In";
+        stat.style = "color:red";
         alert("All In");
         userInput = ml;
         //document.getElementById('currbet').innerHTML = "Your bet: " + ml;
@@ -276,6 +280,7 @@ function startGame()
         account_balance -= userInput;
 
         document.getElementById('end').style.visibility = "visible";
+        document.getElementById('status').style.visibility = "visible";
         //chage play button to quit button
         appData.startButton.style.visibility = "hidden";
         //appData.startButton.setAttribute('onclick', 'endGame()');
@@ -312,7 +317,7 @@ function endGame()
     console.log(typeof appData.money.value);
     console.log(typeof games_won);
     console.log(typeof games_lost);
-    alert("game over");
+    document.getElementById('status').innerHTML = "Game Over";
     appData.gameRunning = false;
     appData.pBet.value = "";
     //appData.playerName.style.visibility = "visible";
@@ -491,8 +496,6 @@ var showHands = function(showDealer)
 
 function hit()
 {
-    alert("hit");
-
     //appData.doubleButton.disabled = true;
     document.getElementById('doubledown').disabled = true;
     //appData.doubleButton.style.visibility = "hidden";
@@ -517,7 +520,9 @@ function hit()
     //check for bust
     if(sum > 21)
     {
-        alert("busted");
+        stat = document.getElementById('status');
+        stat.innerHTML = "Busted";
+        stat.style = "color:red";
         appData.hitButton.style.visibility = "hidden";
         appData.stayButton.style.visibility = "hidden";
         appData.doubleButton.style.visibility = "hidden";
@@ -621,13 +626,17 @@ function turn()
     appData.doubleButton.style.visibility = "visible";
     document.getElementById('doubledown').disabled = false;
     document.getElementById('writebet').style.visibility = "hidden";
-    alert("player turn");
+    stat = document.getElementById('status');
+    stat.innerHTML = "Player Turn";
+    stat.style = "color:white";
 
     if(sum == 21)
     {
         //blackjack
-        alert("black jack!");
-        payOut();
+        stat = document.getElementById('status');
+        stat.innerHTML = "Black Jack!";
+        stat.style = "color:pink";
+        setTimeout(payOut(),1000);
     }
     // appData.hitButton.onclick = hit();
     // appData.stayButton.onclick = stay();
@@ -635,24 +644,27 @@ function turn()
 
 function dealerTurn()
 {
-    alert("dealer turn");
+    stat = document.getElementById('status');
+    stat.innerHTML = "Dealer Turn";
+    stat.style = "color:white";
     showHands(true);
     var dt = getCardSum(appData.players[appData.players.length-1]); //dealer total
     document.getElementById('dtotal').innerHTML = "Dealer Hand Total: " + dt;
 
     while(dt <= 16)
     {
-        dealerHit();
+        setTimeout(dealerHit(),1000);
         var dt = getCardSum(appData.players[appData.players.length-1]); //dealer total
     }
-    dealerStay();
-
-    payOut();
+    setTimeout(dealerStay(),1000);
+    setTimeout(payOut(),1000);
 }
 
 function lose()
 {
-    alert("you lost");
+    stat = document.getElementById('status');
+    stat.innerHTML = "You Lost.";
+    stat.style = "color:red";
     games_lost++;
     var b = parseInt(appData.pBet.value);
     var ml = parseInt(appData.money.value);
@@ -666,7 +678,9 @@ function lose()
 
 function win()
 {
-    alert("you won");
+    stat = document.getElementById('status');
+    stat.innerHTML = "You Won!";
+    stat.style = "color:green";
     games_won++;
     var b = parseInt(appData.pBet.value);
     var ml = parseInt(appData.money.value);
@@ -737,7 +751,9 @@ function payOut()
             lose();
         }
         else{
-            alert("draw");
+            stat = document.getElementById('status');
+            stat.innerHTML = "Draw";
+            stat.style = "color:purple";
             draw();
         }
     }
@@ -777,7 +793,12 @@ function checkBankrupt()
     if(ml <= 0)
     {
         //game ends
-        alert("bankrupt");
+
+
+        stat = document.getElementById('status');
+        stat.innerHTML = "Bankrupt!";
+        stat.style = "color:red";
+        alert("Bankrupt!");
         endGame();
     }
     else {
@@ -800,7 +821,6 @@ function runRound()
     document.getElementById('cardsLeft').innerHTML = "Cards left: " + appData.deck.length;
     if(appData.deck.length <= 6*appData.players.length)
     {
-      alert("reshuffle");
       appData.deck = shuffle();
     }
 

@@ -205,9 +205,6 @@ function tableHandler() {
     }
 }
 
-
-alert("Use the arrow keys to move your character. Move your character to a table to play a game.");
-
 // Repeat createRoom function every 10 milliseconds.
 setInterval(roomDriver, 10);
 setInterval(tableHandler, 1000);

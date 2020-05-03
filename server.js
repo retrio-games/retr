@@ -26,13 +26,13 @@ app.use(session({
 
 
 
-/*const dbConfig = {
-	host: 'localhost',
-	port: 5432,
-	database: 'casino',
-	user: 'postgres',
-	password: 'password'
-};*/
+//const dbConfig = {
+//	host: 'localhost',
+//	port: 5432,
+//	database: 'casino',
+//	user: 'postgres',
+//	password: 'password'
+//};
 
 const dbString = "postgres://jbzadjlaaamuew:e52dd7d0d723b507ccc092da748804d2e30681640dc25c64408fed434ed22b6c@ec2-18-215-99-63.compute-1.amazonaws.com:5432/d7jc2eheg2ukl5"
 
@@ -257,4 +257,5 @@ app.get('/stats', function(request, response) {
 })
 
 const port = process.env.PORT; //|| 3000;
+//const port = 3000;
 app.listen(port);
